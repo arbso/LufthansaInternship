@@ -21,7 +21,7 @@ public class CustomerRepository extends BaseRepository<Customer, Integer> {
     public List<Customer> findAll() {
         List<Customer> customers = new ArrayList<>();
         try (Connection connection = JdbcConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(Queries.FIND_ALL_OFFICES)) {
+             PreparedStatement statement = connection.prepareStatement(Queries.FIND_ALL_CUSTOMERS)) {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 Customer customer = getMapper().map(result);
@@ -39,7 +39,7 @@ public class CustomerRepository extends BaseRepository<Customer, Integer> {
     @Override
     public Customer findById(Integer id) {
         try (Connection connection = JdbcConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(Queries.FIND_OFFICE_BY_CODE)) {
+             PreparedStatement statement = connection.prepareStatement(Queries.FIND_CUSTOMER_BY_ID)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
@@ -54,7 +54,7 @@ public class CustomerRepository extends BaseRepository<Customer, Integer> {
     @Override
     public Boolean exists(Integer id) {
         try (Connection connection = JdbcConnection.connect();
-             PreparedStatement statement = connection.prepareStatement(Queries.CHECK_IF_OFFICE_EXISTS)) {
+             PreparedStatement statement = connection.prepareStatement(Queries.CHECK_IF_CUSTOMER_EXISTS)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
 
